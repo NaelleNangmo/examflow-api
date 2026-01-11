@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\AcademicYearController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\LevelController;
-
+use App\Http\Controllers\SemesterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::patch('/users/{id}/activate', [UserController::class, 'activate']);
     Route::patch('/users/{id}/desactivate', [UserController::class, 'desactivate']);
-
+    
+    Route::apiResource('academic-years', AcademicYearController::class);
+    Route::apiResource('semesters', SemesterController::class);
+    Route::post('semesters/{id}/set-current', [SemesterController::class, 'setCurrent']);
+    Route::post('academic-years/{id}/set-current', [AcademicYearController::class, 'setCurrent']);
     /*
     |--------------------------------------------------------------------------
     | DEPARTMENTS
